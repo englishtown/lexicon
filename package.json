@@ -1,0 +1,39 @@
+{
+  "name": "lexicon",
+  "description": "api documentation generator",
+  "version": "0.1.0",
+  "homepage": "https://github.com/troopjs/lexicon",
+  "author": {
+    "name": "kates",
+    "email": "katesgasis@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/troopjs/lexicon.git"
+  },
+  "bugs": {
+    "url": "https://github.com/troopjs/lexicon/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/troopjs/lexicon/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "lib/lexicon",
+  "engines": {
+    "node": ">= 0.6.0"
+  },
+  "scripts": {
+    "test": "grunt buster"
+  },
+  "dependencies": {
+    "pegjs": "*"
+  },
+  "devDependencies": {
+    "grunt": "~0.3.17",
+    "grunt-buster": "*",
+    "buster": "*"
+  },
+  "keywords": []
+}
