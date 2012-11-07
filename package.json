@@ -1,5 +1,6 @@
 {
   "name": "lexicon",
+  "preferGlobal": "true",
   "description": "api documentation generator",
   "version": "0.1.0",
   "homepage": "https://github.com/troopjs/lexicon",
@@ -21,6 +22,9 @@
     }
   ],
   "main": "lib/lexicon",
+  "bin": {
+    "lexicon": "./bin/lexicon"
+  },
   "engines": {
     "node": ">= 0.6.0"
   },
@@ -28,7 +32,8 @@
     "test": "grunt buster"
   },
   "dependencies": {
-    "pegjs": "*"
+    "pegjs": "*",
+    "commander": "*"
   },
   "devDependencies": {
     "grunt": "~0.3.17",

@@ -1,0 +1,20 @@
+#!/usr/bin/env node
+
+var program = require('commander'),
+	lexicon = require('../lib/lexicon').lexicon;
+
+program
+	.version('0.1.0')
+	.usage("[file] [options]")
+	.option('-f, --file [path]', 'path to file')
+	.option('-i, --inputdir [dir]', 'source code directory')
+	.option('-o, --outputdir [dir]', 'directory to put generated files', "docs")
+	.parse(process.argv);
+
+if (program.args.length > 0) {
+	console.log(lexicon(program.args));
+} else {
+	if (!(program.inputdir || program.file)) {
+		program.help();
+	}
+}

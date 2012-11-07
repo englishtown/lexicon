@@ -5,9 +5,17 @@ api documentation generator
 ## Getting Started
 Install the module with: `npm install lexicon`
 
+Using from the commandline
+
+```bash
+lexicon file1.js file2.js file3.js > doc.json
+```
+
+Using the API
+
 ```javascript
-var lexicon = require('lexicon');
-lexicon.awesome(); // "awesome"
+var lexicon = require('lexicon').parser;
+lexicon.parse(code);
 ```
 
 ## Documentation
