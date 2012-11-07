@@ -12,7 +12,7 @@ program
 	.parse(process.argv);
 
 if (program.args.length > 0) {
-	console.log(lexicon(program.args));
+	console.log(JSON.stringify(lexicon(program.args)));
 } else {
 	if (!(program.inputdir || program.file)) {
 		program.help();
