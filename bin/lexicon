@@ -5,14 +5,16 @@ var program = require('commander'),
 
 program
 	.version('0.1.0')
-	.usage("[file] [options]")
-	.option('-f, --file [path]', 'path to file')
+	.usage("[files] [options]")
 	.option('-i, --inputdir [dir]', 'source code directory')
 	.option('-o, --outputdir [dir]', 'directory to put generated files', "docs")
+	.option('-f, --format [json]', 'output format [html markdown json]', 'json')
 	.parse(process.argv);
 
+
+//console.log(program.format);
 if (program.args.length > 0) {
-	console.log(JSON.stringify(lexicon(program.args)));
+	console.log(lexicon(program.args, program.format));
 } else {
 	if (!(program.inputdir || program.file)) {
 		program.help();

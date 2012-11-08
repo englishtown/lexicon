@@ -13,6 +13,7 @@
  *
  * @return {Object} instance
  */
+ 
 function Klass(name, options) {
 	// some random stuff for testing
 	var a = 2 ^ 1;
