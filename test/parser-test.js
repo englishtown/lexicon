@@ -113,5 +113,11 @@ buster.testCase("Parser", {
 		assert.equals(ast[0]['comment']['tags'][3]['description'], 'This is the return');
 
 		assert.equals(ast[0]['comment']['text'], multilineText);
+	},
+	"can parse from file": function() {
+		var code = fs.readFileSync(__dirname + '/klass.js', 'utf-8');
+		var ast = parser.parse(code);
+		console.log(ast);
+		assert.equals(ast.length, 5);
 	}
 });

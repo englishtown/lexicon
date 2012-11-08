@@ -1,3 +1,7 @@
+/**
+ * @author kates
+ */
+
 
 /**
  * Klass is a pseudo class for JavaScript.
@@ -13,7 +17,6 @@
  *
  * @return {Object} instance
  */
- 
 function Klass(name, options) {
 	// some random stuff for testing
 	var a = 2 ^ 1;
@@ -28,6 +31,10 @@ function Klass(name, options) {
 	/** finally this */
 	return this;
 };
+
+function random() {
+	return 42;
+}
 
 /**
  * Klass#copy copy properties and 

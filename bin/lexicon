@@ -11,8 +11,6 @@ program
 	.option('-f, --format [json]', 'output format [html markdown json]', 'json')
 	.parse(process.argv);
 
-
-//console.log(program.format);
 if (program.args.length > 0) {
 	console.log(lexicon(program.args, program.format));
 } else {
