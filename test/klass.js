@@ -28,10 +28,16 @@ function Klass(name, options) {
 	} else if (a > 50) {
 		return a;
 	}
-	/** finally this */
+	/** finally, comment will be ignored */
 	return this;
 };
 
+
+/*
+ * This comment block will be ignored
+ * @name random
+ * @return {Number} 42
+ */
 function random() {
 	return 42;
 }
@@ -73,6 +79,7 @@ Klass.prototype.copy = function(deep) {
  * @param {String} name Model name
  * @return {Object} model instance
  */
+
 var Model = function(name) {
 	var self = this;
 	this.name = name;

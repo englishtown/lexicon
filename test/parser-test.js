@@ -15,7 +15,7 @@ buster.testCase("Parser", {
 		 */
 		//function Klass(num){}
 
-		var code = "/*\n * @name Klass\n * @constructor\n * @param {String} name The class name\n *\n * @return {Integer} This is the return\n */\nfunction Klass(name){}";
+		var code = "/**\n * @name Klass\n * @constructor\n * @param {String} name The class name\n *\n * @return {Integer} This is the return\n */\nfunction Klass(name){}";
 		var ast = parser.parse(code);
 
 		assert.equals(ast[0]['comment']['tags'].length, 4);
@@ -37,6 +37,20 @@ buster.testCase("Parser", {
 		assert.equals(ast[0]['function']['args'].length, 1);
 		assert.equals(ast[0]['function']['args'][0], 'name');
 		*/
+	},
+
+	"ignore block starting with /*": function() {
+		var code = "/*\n * @name Klass\n * @constructor\n * @param {String} name The class name\n *\n * @return {Integer} This is the return\n */\nfunction Klass(name){}";
+		var ast = parser.parse(code);
+
+		assert.equals(ast.length, 0);
+	},
+
+	"ignore block starting with /***+": function() {
+		var code = "/*\n * @name Klass\n * @constructor\n * @param {String} name The class name\n *\n * @return {Integer} This is the return\n */\nfunction Klass(name){}";
+		var ast = parser.parse(code);
+
+		assert.equals(ast.length, 0);
 	},
 
 	"parse block with multiple params": function() {
@@ -117,7 +131,17 @@ buster.testCase("Parser", {
 	"can parse from file": function() {
 		var code = fs.readFileSync(__dirname + '/klass.js', 'utf-8');
 		var ast = parser.parse(code);
-		console.log(ast);
+
+		// check the number of comment blocks in the file.
 		assert.equals(ast.length, 5);
+
+		// verify parse ordering. not that it mattered.
+		// also check that tags and values aren't mangled
+		// from other comment blocks
+		assert.equals(ast[0]['comment']['tags'][0]['tag'], 'author');
+		assert.equals(ast[0]['comment']['tags'][0]['value'], 'kates');
+
+		assert.equals(ast[1]['comment']['tags'][0]['tag'], 'name');
+		assert.equals(ast[1]['comment']['tags'][0]['value'], 'Klass');
 	}
 });
