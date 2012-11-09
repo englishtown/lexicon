@@ -8,14 +8,17 @@ Install the module with: `npm install lexicon`
 Using from the commandline
 
 ```bash
-lexicon file1.js file2.js file3.js > doc.json
+lexicon file1.js file2.js file3.js -f json > doc.json
+lexicon file1.js file2.js file3.js -f markdown > doc.md
 ```
 
 Using the API
 
 ```javascript
-var lexicon = require('lexicon').parser;
-lexicon.parse(code);
+var lexicon = require('lexicon'),
+	parser = lexicon.parser,
+	formatter = lexicon.formatter;
+console.log(formatter.format(parser.parse(code), 'markdown'));
 ```
 
 ## Documentation
