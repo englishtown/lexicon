@@ -79,8 +79,16 @@ Klass.prototype.copy = function(deep) {
  * @param {String} name Model name
  * @return {Object} model instance
  */
-
 var Model = function(name) {
 	var self = this;
 	this.name = name;
+};
+
+/**
+ * Model#extend
+ * @param {Object} options Options
+ * @return {Object} object
+ */
+Mode.prototype.extend = function(options) {
+
 };

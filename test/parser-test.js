@@ -39,6 +39,13 @@ buster.testCase("Parser", {
 		*/
 	},
 
+	"parse function name": function() {
+		var code = "/**\n * @name Klass\n * @constructor\n * @param {String} name The class name\n *\n * @return {Integer} This is the return\n */\nfunction Klass(name){}";
+
+		var ast = parser.parse(code);
+		assert.equals(ast[0]['function'], 'Klass');
+	},
+
 	"ignore block starting with /*": function() {
 		var code = "/*\n * @name Klass\n * @constructor\n * @param {String} name The class name\n *\n * @return {Integer} This is the return\n */\nfunction Klass(name){}";
 		var ast = parser.parse(code);
@@ -133,7 +140,7 @@ buster.testCase("Parser", {
 		var ast = parser.parse(code);
 
 		// check the number of comment blocks in the file.
-		assert.equals(ast.length, 5);
+		assert.equals(ast.length, 6);
 
 		// verify parse ordering. not that it mattered.
 		// also check that tags and values aren't mangled
