@@ -150,5 +150,16 @@ buster.testCase("Parser", {
 
 		assert.equals(ast[1]['comment']['tags'][0]['tag'], 'name');
 		assert.equals(ast[1]['comment']['tags'][0]['value'], 'Klass');
+	},
+	"ignore global var declarations": function() {
+		var code = "var peg = require('pegjs'),\
+			fs = require('fs'),\
+			grammar = fs.readFileSync(__dirname + '/grammar.pegjs', 'utf-8'),\
+			parser = peg.buildParser(grammar, {trackLineAndColumn: true});\
+			\
+			module.exports.parser = parser;";
+
+		var ast = parser.parse(code);
+		assert.equals(1,1);
 	}
 });
