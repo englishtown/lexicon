@@ -1,20 +1,46 @@
 #!/usr/bin/env node
 
-var program = require('commander'),
-	lexicon = require('../lib/lexicon').lexicon;
+var fs = require('fs'),
+	path = require('path'),
+	program = require('commander'),
+	glob = require('glob-whatev'),
+	lexicon = require('../lib/lexicon').lexicon,
+	mkdirp = require('mkdirp'),
+	rimraf = require('rimraf'),
+	formatExts = {markdown: '.md', json: '.json', html: '.html'};
 
 program
 	.version('0.1.0')
 	.usage("[files] [options]")
 	.option('-i, --inputdir [dir]', 'source code directory')
-	.option('-o, --outputdir [dir]', 'directory to put generated files', "docs")
+	.option('-o, --outputdir [dir]', 'directory to put generated files')
 	.option('-f, --format [json]', 'output format [html markdown json]', 'json')
 	.parse(process.argv);
+
+if (!/html|markdown|json/.test(program.format)) {
+	console.log("\nInvalid output format.");
+	program.help();
+}
 
 if (program.args.length > 0) {
 	console.log(lexicon(program.args, program.format));
 } else {
 	if (!(program.inputdir || program.file)) {
 		program.help();
+	}
+
+	var files = glob.glob(program.inputdir + "/**/*.js");
+
+	if (program.outputdir) {
+		var re = new RegExp("^" + program.inputdir);
+
+		rimraf.sync(program.outputdir);
+		files.forEach(function(f) {
+			var fname = f.replace(re, program.outputdir) + formatExts[program.format];
+			mkdirp.sync(path.dirname(fname));
+			fs.writeFileSync(fname, lexicon(f, program.format));
+		});
+	} else {
+		console.log(lexicon(files, program.format));
 	}
 }

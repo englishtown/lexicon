@@ -33,7 +33,10 @@
   },
   "dependencies": {
     "pegjs": "*",
-    "commander": "*"
+    "commander": "*",
+    "glob-whatev": "*",
+    "rimraf": "*",
+    "mkdirp": "*"
   },
   "devDependencies": {
     "grunt": "~0.3.17",
