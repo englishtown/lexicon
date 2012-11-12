@@ -152,14 +152,28 @@ buster.testCase("Parser", {
 		assert.equals(ast[1]['comment']['tags'][0]['value'], 'Klass');
 	},
 	"ignore global var declarations": function() {
-		var code = "var peg = require('pegjs'),\
-			fs = require('fs'),\
-			grammar = fs.readFileSync(__dirname + '/grammar.pegjs', 'utf-8'),\
-			parser = peg.buildParser(grammar, {trackLineAndColumn: true});\
-			\
-			module.exports.parser = parser;";
+		/*
+		var peg = require('pegjs'),
+		fs = require('fs'),
+		grammar = fs.readFileSync(__dirname + '/grammar.pegjs', 'utf-8'),
+		parser = peg.buildParser(grammar, {trackLineAndColumn: true});
 
+		module.exports.parser = parser;
+		*/
+		var code = fs.readFileSync(__dirname + '/global_declarations.js', 'utf-8');
 		var ast = parser.parse(code);
-		assert.equals(1,1);
+		assert.equals(ast.length, 0);
+	},
+	"ignore /*! blocks": function() {
+		/*!
+		 * lexicon
+		 * https://github.com/troopjs/lexicon
+		 *
+		 * Copyright (c) 2012 kates
+		 * Licensed under the MIT license.
+		 */
+		var code = fs.readFileSync(__dirname + '/ignore.js', 'utf-8');
+		var ast = parser.parse(code);
+		assert.equals(ast.length, 0);
 	}
 });
