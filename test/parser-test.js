@@ -1,21 +1,50 @@
-var buster = require("buster"),
+var fs = require('fs'),
+	path = require('path'), 
+	buster = require("buster"),
 	parser = require("../lib/parser").parser,
 	fs = require('fs'),
+	path = require('path'),
 	assert = buster.assert;
 
+function loadFixture(f) {
+	return fs.readFileSync(__dirname + path.sep + f, 'utf-8');
+}
 
 buster.testCase("Parser", {
+	"consecutive comment blocks": function() {
+		/*!
+		 * TroopJS jQuery weave plug-in
+		 * @license TroopJS Copyright 2012, Mikael Karon <mikael@karon.se>
+		 * Released under the MIT license.
+		 */
+		/*global define:false */
+
+		/**
+		 * TroopJS jQuery weave plug-in
+		 * @license TroopJS Copyright 2012, Mikael Karon <mikael@karon.se>
+		 * Released under the MIT license.
+		 */
+
+		var code = loadFixture('consecutive.js');
+		var ast = parser.parse(code);
+		assert.equals(ast[0]['comment']['tags'][0]['tag'], 'license');
+		assert.equals(ast[0]['comment']['tags'][0]['value'], 'TroopJS Copyright 2012, Mikael Karon <mikael@karon.se>');
+	},
+/*
+});
+var a = ({
+*/
 	"parse basic comment block": function() {
-		/*
+		/**
 		 * @name Klass
 		 * @constructor
 		 * @param {String} name The class name
 		 *
-		 * @return {Object} This is the return
+		 * @return {Integer} This is the return
 		 */
 		//function Klass(num){}
 
-		var code = "/**\n * @name Klass\n * @constructor\n * @param {String} name The class name\n *\n * @return {Integer} This is the return\n */\nfunction Klass(name){}";
+		var code = loadFixture('basic.js');
 		var ast = parser.parse(code);
 
 		assert.equals(ast[0]['comment']['tags'].length, 4);
@@ -40,14 +69,32 @@ buster.testCase("Parser", {
 	},
 
 	"parse function name": function() {
-		var code = "/**\n * @name Klass\n * @constructor\n * @param {String} name The class name\n *\n * @return {Integer} This is the return\n */\nfunction Klass(name){}";
+		/**
+		 * @name Klass
+		 * @constructor
+		 * @param {String} name The class name
+		 *
+		 * @return {Integer} This is the return
+		 */
+		//function Klass(name){}
+
+		var code = loadFixture('function_name.js');
 
 		var ast = parser.parse(code);
 		assert.equals(ast[0]['function'], 'Klass');
 	},
 
 	"ignore block starting with /*": function() {
-		var code = "/*\n * @name Klass\n * @constructor\n * @param {String} name The class name\n *\n * @return {Integer} This is the return\n */\nfunction Klass(name){}";
+		/*
+		 * @name Klass
+		 * @constructor
+		 * @param {String} name The class name
+		 *
+		 * @return {Integer} This is the return
+		 */
+		//function Klass(name){}
+
+		var code = loadFixture('start_slash_star.js');
 		var ast = parser.parse(code);
 
 		assert.equals(ast.length, 0);
