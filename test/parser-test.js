@@ -30,10 +30,6 @@ buster.testCase("Parser", {
 		assert.equals(ast[0]['comment']['tags'][0]['tag'], 'license');
 		assert.equals(ast[0]['comment']['tags'][0]['value'], 'TroopJS Copyright 2012, Mikael Karon <mikael@karon.se>');
 	},
-/*
-});
-var a = ({
-*/
 	"parse basic comment block": function() {
 		/**
 		 * @name Klass
@@ -222,5 +218,15 @@ var a = ({
 		var code = fs.readFileSync(__dirname + '/ignore.js', 'utf-8');
 		var ast = parser.parse(code);
 		assert.equals(ast.length, 0);
+	},
+	"amd": function() {
+		var code = loadFixture('amd.js');
+		var ast = parser.parse(code);
+		assert.equals(ast[0]['comment']['tags'][0]['tag'], 'license');
+
+		assert.equals(ast[1]['comment']['tags'].length, 2);
+		assert.equals(ast[1]['comment']['tags'][0]['tag'], 'param');
+		assert.equals(ast[1]['comment']['tags'][0]['value'], 'name');
+		assert.equals(ast[1]['comment']['tags'][0]['type'], 'String');
 	}
 });
