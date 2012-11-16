@@ -10,6 +10,7 @@ Using from the commandline
 ```bash
 lexicon file1.js file2.js file3.js -f json > doc.json
 lexicon file1.js file2.js file3.js -f markdown > doc.md
+lexicon -i src -o docs -f markdown
 ```
 
 Using the API
