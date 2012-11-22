@@ -153,8 +153,8 @@ buster.testCase("Parser", {
 		 */
 		//function Klass(name, options){}
 
-		var code = "/**\n * This is a usage documentation\n * in multiline.\n *\n * This is another paragraph\n * that is multiline.\n *\n * @name Klass\n *\n * @param {String} name The class name\n * @param {Object} options Options\n *\n * @return {Object} This is the return\n */\nfunction Klass(num){}";
-		
+		var code = loadFixture('multiline.js');
+
 		var multilineText = "This is a usage documentation\nin multiline.\n\nThis is another paragraph\nthat is multiline.";
 		var ast = parser.parse(code);
 
@@ -178,6 +178,7 @@ buster.testCase("Parser", {
 
 		assert.equals(ast[0]['comment']['text'], multilineText);
 	},
+
 	"can parse from file": function() {
 		var code = fs.readFileSync(__dirname + '/klass.js', 'utf-8');
 		var ast = parser.parse(code);
@@ -228,5 +229,16 @@ buster.testCase("Parser", {
 		assert.equals(ast[1]['comment']['tags'][0]['tag'], 'param');
 		assert.equals(ast[1]['comment']['tags'][0]['value'], 'name');
 		assert.equals(ast[1]['comment']['tags'][0]['type'], 'String');
+	},
+	"requirejs": function() {
+		var code = loadFixture('require.js');
+		var ast = parser.parse(code);
+		assert.equals(1,1);
+	},
+	"grunt": function(){
+		var code = loadFixture('grunt.js');
+		var ast = parser.parse(code);
+
+		assert.equals(1,1);
 	}
 });
