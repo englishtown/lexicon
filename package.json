@@ -2,7 +2,7 @@
   "name": "lexicon",
   "preferGlobal": "true",
   "description": "api documentation generator",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "homepage": "https://github.com/troopjs/lexicon",
   "author": {
     "name": "kates",
@@ -37,7 +37,7 @@
     "glob-whatev": "*",
     "rimraf": "*",
     "mkdirp": "*",
-    "esprima": "*"
+    "falafel": "*"
   },
   "devDependencies": {
     "grunt": "~0.3.17",
