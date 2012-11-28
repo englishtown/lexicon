@@ -7,10 +7,11 @@ var fs = require('fs'),
 	lexicon = require('../lib/lexicon').lexicon,
 	mkdirp = require('mkdirp'),
 	rimraf = require('rimraf'),
-	formatExts = {markdown: '.md', json: '.json', html: '.html'};
+	formatExts = {markdown: '.md', json: '.json', html: '.html'},
+	pkg = require('../package.json');
 
 program
-	.version('0.1.0')
+	.version(pkg.version)
 	.usage("[files] [options]")
 	.option('-i, --inputdir [dir]', 'source code directory')
 	.option('-o, --outputdir [dir]', 'directory to put generated files')
