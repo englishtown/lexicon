@@ -2,7 +2,7 @@
   "name": "lexicon",
   "preferGlobal": "true",
   "description": "api documentation generator",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "homepage": "https://github.com/troopjs/lexicon",
   "author": {
     "name": "kates",
