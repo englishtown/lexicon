@@ -58,10 +58,9 @@ buster.testCase("Parser", {
 		assert.equals(ast[0]['comment']['tags'][3]['type'], 'Integer');
 		assert.equals(ast[0]['comment']['tags'][3]['description'], 'This is the return');
 
-		/*assert.equals(ast[0]['function']['name'], 'Klass');
-		assert.equals(ast[0]['function']['args'].length, 1);
-		assert.equals(ast[0]['function']['args'][0], 'name');
-		*/
+		assert.equals(ast[0]['function'], 'Klass');
+		/*assert.equals(ast[0]['function']['args'].length, 1);
+		assert.equals(ast[0]['function']['args'][0], 'name');*/
 	},
 
 	"parse function name": function() {
@@ -240,5 +239,11 @@ buster.testCase("Parser", {
 		var ast = parser.parse(code);
 
 		assert.equals(1,1);
+	},
+
+	"return_function": function() {
+		var code = loadFixture('return_function.js');
+		var ast = parser.parse(code);
+		assert.equals(ast[0]['function'], 'handlerProxy');
 	}
 });
