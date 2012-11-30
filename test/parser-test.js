@@ -59,8 +59,6 @@ buster.testCase("Parser", {
 		assert.equals(ast[0]['comment']['tags'][3]['description'], 'This is the return');
 
 		assert.equals(ast[0]['function'], 'Klass');
-		/*assert.equals(ast[0]['function']['args'].length, 1);
-		assert.equals(ast[0]['function']['args'][0], 'name');*/
 	},
 
 	"parse function name": function() {
@@ -112,7 +110,7 @@ buster.testCase("Parser", {
 		 */
 		//function Klass(num){}
 
-		var code = "/**\n * @name Klass\n * @param {String} name The class name\n * @param {Object} options Options\n *\n * @return {Object} This is the return\n */\nfunction Klass(num){}";
+		var code = loadFixture('multiparams.js');
 		var ast = parser.parse(code);
 
 		assert.equals(ast[0]['comment']['tags'].length, 4);
@@ -132,6 +130,8 @@ buster.testCase("Parser", {
 		assert.equals(ast[0]['comment']['tags'][3]['tag'], 'return');
 		assert.equals(ast[0]['comment']['tags'][3]['type'], 'Object');
 		assert.equals(ast[0]['comment']['tags'][3]['description'], 'This is the return');
+
+		assert.equals(ast[0]['function'], 'Klass');
 
 	},
 
@@ -176,10 +176,12 @@ buster.testCase("Parser", {
 		assert.equals(ast[0]['comment']['tags'][3]['description'], 'This is the return');
 
 		assert.equals(ast[0]['comment']['text'], multilineText);
+
+		assert.equals(ast[0]['function'], 'Klass');
 	},
 
 	"can parse from file": function() {
-		var code = fs.readFileSync(__dirname + '/klass.js', 'utf-8');
+		var code = loadFixture('klass.js');
 		var ast = parser.parse(code);
 
 		// check the number of comment blocks in the file.
@@ -191,8 +193,15 @@ buster.testCase("Parser", {
 		assert.equals(ast[0]['comment']['tags'][0]['tag'], 'author');
 		assert.equals(ast[0]['comment']['tags'][0]['value'], 'kates');
 
+
 		assert.equals(ast[1]['comment']['tags'][0]['tag'], 'name');
 		assert.equals(ast[1]['comment']['tags'][0]['value'], 'Klass');
+		assert.equals(ast[1]['function'], 'Klass');
+
+		assert.equals(ast[2]['function'], 'Klass.prototype.copy');
+
+		assert.equals(ast[3]['function'], 'Extend');
+		assert.equals(ast[4]['function'], 'Model');
 	},
 	"ignore global var declarations": function() {
 		/*
@@ -222,12 +231,14 @@ buster.testCase("Parser", {
 	"amd": function() {
 		var code = loadFixture('amd.js');
 		var ast = parser.parse(code);
+
 		assert.equals(ast[0]['comment']['tags'][0]['tag'], 'license');
 
 		assert.equals(ast[1]['comment']['tags'].length, 2);
 		assert.equals(ast[1]['comment']['tags'][0]['tag'], 'param');
 		assert.equals(ast[1]['comment']['tags'][0]['value'], 'name');
 		assert.equals(ast[1]['comment']['tags'][0]['type'], 'String');
+		assert.equals(ast[1]['function'], 'AMD');
 	},
 	"requirejs": function() {
 		var code = loadFixture('require.js');
@@ -245,5 +256,13 @@ buster.testCase("Parser", {
 		var code = loadFixture('return_function.js');
 		var ast = parser.parse(code);
 		assert.equals(ast[0]['function'], 'handlerProxy');
+	},
+	"composejs": function(){
+		var code = loadFixture('compose.js');
+		var ast = parser.parse(code);
+		assert.equals(ast[0]['function'], 'Widget');
+		assert.equals(ast[1]['function'], 'Widget.render');
+		assert.equals(ast[2]['function'], 'Logger');
+		assert.equals(ast[3]['function'], 'Logger.logAndRender');
 	}
 });

@@ -89,6 +89,6 @@ var Model = function(name) {
  * @param {Object} options Options
  * @return {Object} object
  */
-Mode.prototype.extend = function(options) {
+Model.prototype.extend = function(options) {
 
 };
