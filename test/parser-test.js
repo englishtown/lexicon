@@ -264,5 +264,12 @@ buster.testCase("Parser", {
 		assert.equals(ast[1]['function'], 'Widget.render');
 		assert.equals(ast[2]['function'], 'Logger');
 		assert.equals(ast[3]['function'], 'Logger.logAndRender');
+	},
+	"wrapper function property": function() {
+		var code = loadFixture('wrapper.js');
+		var ast = parser.parse(code);
+		assert.equals(ast.length, 2);
+		assert.equals(ast[0]['function'], 'before');
+		assert.equals(ast[1]['function'], 'after');
 	}
 });
