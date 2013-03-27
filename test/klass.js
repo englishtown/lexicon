@@ -88,6 +88,8 @@ var Model = function(name) {
  * Model#extend
  * @param {Object} options Options
  * @return {Object} object
+ * 
+ * Extend what?
  */
 Model.prototype.extend = function(options) {
 
