@@ -40,9 +40,12 @@
     "falafel": "*"
   },
   "devDependencies": {
-    "grunt": "~0.3.17",
-    "grunt-buster": "*",
-    "buster": "*"
+    "grunt": "*",
+    "buster": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-plugin-buster": "*"
+    
   },
   "keywords": [
     "lexicon",

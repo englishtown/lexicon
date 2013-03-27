@@ -5,14 +5,12 @@ module.exports = function(grunt) {
 		test: {
 			files: ['test/**/*.js']
 		},
-		lint: {
-			files: ['grunt.js', 'lib/**/*.js', 'test/**/*-test.js']
-		},
 		watch: {
 			files: '<config:lint.files>',
 			tasks: 'default'
 		},
 		jshint: {
+			all: ['Gruntfile.js', 'lib/**/*.js', 'test/**/*-test.js'],
 			options: {
 				curly: true,
 				eqeqeq: true,
@@ -33,13 +31,12 @@ module.exports = function(grunt) {
 			}
 		},
 		buster: {
-			test: {
-				config: 'test/buster.js'
-			}
+			config: {}
 		}
 	});
 
 	// Default task.
-	grunt.loadNpmTasks('grunt-buster');
-	grunt.registerTask('default', 'lint buster');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-plugin-buster');
+	grunt.registerTask('default', ['jshint','buster']);
 };
