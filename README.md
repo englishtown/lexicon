@@ -2,6 +2,8 @@
 
 api documentation generator
 
+[![Build Status](https://travis-ci.org/kates/lexicon.png)](https://travis-ci.org/kates/lexicon)
+
 ## Getting Started
 Install the module with: `npm install lexicon`
 
