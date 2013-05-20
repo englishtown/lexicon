@@ -25,9 +25,6 @@ console.log(formatter.format(parser.parse(code), 'markdown'));
 ## Documentation
 _(Coming soon)_
 
-## Examples
-_(Coming soon)_
-
 ## Testing
 Testing is done using [buster](http://busterjs.org) thru [grunt-buster](https://github.com/thedersen/grunt-buster) plugin.
 
@@ -37,7 +34,9 @@ Testing is done using [buster](http://busterjs.org) thru [grunt-buster](https://
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [grunt](https://github.com/gruntjs/grunt).
 
 ## Release History
-_(Nothing yet)_
+**0.2.11**
+fixed missing square brackets in optional params
+
 
 ## License
 Copyright (c) 2012 kates  
