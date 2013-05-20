@@ -271,5 +271,27 @@ buster.testCase("Parser", {
 		assert.equals(ast.length, 2);
 		assert.equals(ast[0]['function'], 'before');
 		assert.equals(ast[1]['function'], 'after');
-	}
+	},
+  "optional params": function() {
+    var code = loadFixture('optional.js');
+    var ast = parser.parse(code);
+    assert.equals(ast.length, 1);
+    assert.equals(ast[0]['comment']['tags'].length, 9);
+    assert.equals(ast[0]['comment']['tags'][0]['tag'], 'param');
+    assert.equals(ast[0]['comment']['tags'][0]['type'], 'Object');
+    assert.isTrue(ast[0]['comment']['tags'][0]['optional']);
+    assert.equals(ast[0]['comment']['tags'][0]['value'], 'methods');
+    assert.equals(ast[0]['comment']['tags'][1]['tag'], 'param');
+    assert.equals(ast[0]['comment']['tags'][1]['type'], 'Object');
+    assert.isTrue(ast[0]['comment']['tags'][1]['optional']);
+    assert.equals(ast[0]['comment']['tags'][1]['value'], 'state');
+    assert.equals(ast[0]['comment']['tags'][2]['tag'], 'param');
+    assert.equals(ast[0]['comment']['tags'][2]['type'], 'Function');
+    assert.isTrue(ast[0]['comment']['tags'][2]['optional']);
+    assert.equals(ast[0]['comment']['tags'][2]['value'], 'enclose');
+    assert.equals(ast[0]['comment']['tags'][3]['tag'], 'return');
+    assert.equals(ast[0]['comment']['tags'][3]['type'], 'Function');
+    refute.defined(ast[0]['comment']['tags'][3]['optional']);
+    refute.defined(ast[0]['comment']['tags'][3]['value']);
+  }
 });
