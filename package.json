@@ -2,7 +2,7 @@
   "name": "lexicon",
   "preferGlobal": "true",
   "description": "api documentation generator",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "homepage": "https://github.com/troopjs/lexicon",
   "author": {
     "name": "kates",
@@ -45,7 +45,6 @@
     "grunt-contrib-jshint": "*",
     "grunt-contrib-concat": "*",
     "grunt-plugin-buster": "*"
-    
   },
   "keywords": [
     "lexicon",
